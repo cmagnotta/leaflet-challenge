@@ -29,18 +29,18 @@ L.control.layers(baseMaps, overlayMaps, {
 
 function createMarkers(response) {
 
-    var earthquake = response.data.earthquake;
+    var earthquake = response.data.features;
   
     // Initialize an array to hold bike markers
     var quakeMarkers = [];
   
     // Loop through the stations array
-    for (var index = 0; index < earthquake.length; index++) {
+    for (var index = 0; index < features.length; index++) {
       var earthquake = earthquake[index];
   
       // For each station, create a marker and bind a popup with the station's name
-      var quakeMarkers = L.marker([earthquake.lat, earthquake.lon])
-        .bindPopup("<h3>" + earthquake.place + "<h3><h3>Magnitude: " + earthquake.mag + "</h3>");
+      var quakeMarkers = L.marker([features.lat, features.lon])
+        .bindPopup("<h3>" + features.place + "<h3><h3>Magnitude: " + features.mag + "</h3>");
   
       // Add the marker to the bikeMarkers array
       quakeMarkers.push(quakeMarkers);
