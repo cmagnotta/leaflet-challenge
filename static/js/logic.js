@@ -29,7 +29,8 @@ L.control.layers(baseMaps, overlayMaps, {
 
 function createMarkers(response) {
 
-    var earthquake = response.data.features;
+    var earthquake = properties.mag;
+    console.log(earthquake);
   
     // Initialize an array to hold bike markers
     var quakeMarkers = [];
