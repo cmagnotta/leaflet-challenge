@@ -1,11 +1,14 @@
 function createMap(earthquakes) {
+console.log(earthquakes);
 
-var lightmap = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
-    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
-    maxZoom: 18,
-    id: "light-v10",
-    accessToken: API_KEY
-  });
+var lightmap = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+  maxZoom: 18,
+  id: 'mapbox/streets-v11',
+  tileSize: 512,
+  zoomOffset: -1,
+  accessToken: API_KEY
+});
 
 var baseMaps = {
     "Light Map": lightmap
@@ -15,40 +18,40 @@ var overlayMaps = {
     "Earthquakes": earthquakes
   };
 
-var map = L.map("map-id", {
-    center: [38.5816, -121.4944],
-    zoom: 12,
-    layers: [lightmap, earthquakes]
-  });
+var map = L.map("mapid").setView([38.5816, -121.4944], 12)
 
-L.control.layers(baseMaps, overlayMaps, {
-    collapsed: false
-  }).addTo(map);
+lightmap.addTo(map);
+
+for (var i = 0; i < earthquakes.length; i++) {
+  earthquakes[i].addTo(map);
+}
+
+//L.control.layers(baseMaps, overlayMaps).addTo(map);
 }
 
 
 function createMarkers(response) {
-
-    var earthquake = properties.mag;
-    console.log(earthquake);
-  
-    // Initialize an array to hold bike markers
+    console.log(response);
+    var coordinates = response.features[0].geometry.coordinates;
+    var magnitude = response.features[0].properties.mag;
+    console.log(coordinates);
+    console.log(magnitude);
+    
     var quakeMarkers = [];
   
-    // Loop through the stations array
-    for (var index = 0; index < features.length; index++) {
-      var earthquake = earthquake[index];
-  
-      // For each station, create a marker and bind a popup with the station's name
-      var quakeMarkers = L.marker([features.lat, features.lon])
-        .bindPopup("<h3>" + features.place + "<h3><h3>Magnitude: " + features.mag + "</h3>");
+    
+    for (var i = 0; i < response.features.length; i++) {
+      const [lon, lat] = response.features[i].geometry.coordinates;
+console.log(lat)
+      var quakeMarker = L.marker([lat, lon]);
+        //.bindPopup("<h3>" + response.features[i].properties.place + "<h3><h3>Magnitude: " + response.features[i].properties.mag + "</h3>");
   
       // Add the marker to the bikeMarkers array
-      quakeMarkers.push(quakeMarkers);
+      quakeMarkers.push(quakeMarker);
     }
   
     // Create a layer group made from the bike markers array, pass it into the createMap function
-    createMap(L.layerGroup(quakeMarkers));
+    createMap(quakeMarkers);
   }
   
 
