@@ -18,7 +18,7 @@ var overlayMaps = {
     "Earthquakes": earthquakes
   };
 
-var map = L.map("mapid").setView([38.5816, -121.4944], 12)
+var map = L.map("mapid").setView([38.5816, -121.4944], 3)
 
 lightmap.addTo(map);
 
@@ -46,11 +46,11 @@ console.log(lat)
       var quakeMarker = L.marker([lat, lon]);
         //.bindPopup("<h3>" + response.features[i].properties.place + "<h3><h3>Magnitude: " + response.features[i].properties.mag + "</h3>");
   
-      // Add the marker to the bikeMarkers array
+      
       quakeMarkers.push(quakeMarker);
     }
   
-    // Create a layer group made from the bike markers array, pass it into the createMap function
+    
     createMap(quakeMarkers);
   }
   
