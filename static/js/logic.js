@@ -32,22 +32,24 @@ function createMap(earthquakes) {
   
   function createMarkers(response) {
       //console.log(response);
-      var coordinates = response.features[0].geometry.coordinates;
-      var magnitude = response.features[0].properties.mag;
+      //var coordinates = response.features[0].geometry.coordinates;
+      //var magnitude = response.features[0].properties.mag;
       //console.log(coordinates);
-      //console.log(magnitude);
+      console.log(magnitude);
       
       var quakeMarkers = [];
     
       
       for (var i = 0; i < response.features.length; i++) {
         const [lon, lat] = response.features[i].geometry.coordinates;
+        var magnitude = response.features[0].properties.mag;
   //console.log(lat)
         var quakeMarker = L.marker([lat, lon]);
         console.log(magnitude);
+        //console.log(coordinates);
         //.bindPopup("<h3>" + response.features[i].properties.place + "<h3><h3>Magnitude: " + response.features[i].properties.mag + "</h3>");
         var color = "";
-        if (magnitude[i] > 8) {
+        if (magnitude > 8) {
           color = "yellow";
         }
         else if (magnitude[i] > 7) {
