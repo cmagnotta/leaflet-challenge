@@ -21,7 +21,10 @@ function createMap(earthquakes) {
   var map = L.map("mapid").setView([38.5816, -121.4944], 3)
   
   lightmap.addTo(map);
-  
+
+
+
+
   for (var i = 0; i < earthquakes.length; i++) {
     earthquakes[i].addTo(map);
   }
@@ -91,6 +94,7 @@ function createMap(earthquakes) {
         var quakeMarker = L.marker([lat, lon], { icon:greenIcon })
           .bindPopup("<h3>" + response.features[i].properties.place + "<h3><h3>Magnitude: " + response.features[i].properties.mag + "</h3>");
         
+        
 
         //quakeMarker._icon.className +=  " huechange";
         
@@ -100,13 +104,14 @@ function createMap(earthquakes) {
 
         quakeMarkers.push(quakeMarker);
       }
- 
+      
+
     
 
       createMap(quakeMarkers);
     }
     
-   
+    
     
 
 
