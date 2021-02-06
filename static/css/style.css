@@ -8,3 +8,6 @@ body,
 html {
   height: 100%;
 }
+.huechange {
+  background-color: red;
+}

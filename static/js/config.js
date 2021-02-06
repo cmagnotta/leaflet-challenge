@@ -12,3 +12,5 @@ const API_KEY = "pk.eyJ1IjoiY21hZ25vdHRhIiwiYSI6ImNranhrZmIwNzA0dmMyb3BoMjljODN4
 //Minor	3 -3.9
 
 //https://nuchidatapt09-sun2423.slack.com/files/U01G8L94MHU/F01KL36LPAM/leaflet.extra-markers.min.js
+
+//depths - 35, 7.7, 9, 1.7

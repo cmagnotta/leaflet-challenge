@@ -41,27 +41,63 @@ function createMap(earthquakes) {
     
       
       for (var i = 0; i < response.features.length; i++) {
-        const [lon, lat] = response.features[i].geometry.coordinates;
-        var magnitude = response.features[0].properties.mag;
+        const [lon, lat, depth] = response.features[i].geometry.coordinates;
+        var magnitude = response.features[i].properties.mag;
   //console.log(lat)
-        var quakeMarker = L.marker([lat, lon]);
+        var quakeMarker = L.marker([lat, lon], {  });
         console.log(magnitude);
+        var newwidth;
+        var newheight;
+
+       
+          
         //console.log(coordinates);
-        //.bindPopup("<h3>" + response.features[i].properties.place + "<h3><h3>Magnitude: " + response.features[i].properties.mag + "</h3>");
-        var color = "";
+        //
+        
+
         if (magnitude > 8) {
-          color = "yellow";
+          newwidth = 70;
+          newheight = 80;
         }
-        else if (magnitude[i] > 7) {
-          color = "blue";
+        else if (magnitude > 5) {
+          newwidth = 55;
+          newheight = 65;
         }
-        else if (magnitude[i] > 2) {
-          color = "green";
+        else if (magnitude > 3) {
+          newwidth = 40;
+          newheight = 50;
         }
         else {
-          color = "red";
+          newwidth = 25;
+          newheight = 35;
         }
+
+        const iconAttr = {
+          iconSize: [newwidth, newheight],
+          shadowSize: [0, 0]
+        };
+        console.log(depth);
+
+        if (depth > 50) {
+          iconAttr.iconUrl = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-black.png';
+        }
+        if (depth > 10) {
+          iconAttr.iconUrl = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png';
+        } 
+        else {
+          iconAttr.iconUrl = 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-gold.png'
+        }
+        var greenIcon = new L.Icon(iconAttr);
+        var quakeMarker = L.marker([lat, lon], { icon:greenIcon })
+          .bindPopup("<h3>" + response.features[i].properties.place + "<h3><h3>Magnitude: " + response.features[i].properties.mag + "</h3>");
         
+
+        //quakeMarker._icon.className +=  " huechange";
+        
+
+       // icon.options.iconSize = [newwidth, newheight];
+       // quakeMarker.setIcon(icon);
+
         quakeMarkers.push(quakeMarker);
       }
  
